@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.example.WebRede.entities.Local;
+import com.example.WebRede.entities.Equipment;
 import com.example.WebRede.entities.Switch;
 
 @Embeddable
@@ -14,33 +14,33 @@ public class SwitchPortPK  implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-//	@ManyToOne
-//	@JoinColumn(name= "order_id")
+	@ManyToOne
+	@JoinColumn(name= "switcher_id")
 	private Switch switcher;
 	
-//	@ManyToOne
-//	@JoinColumn(name= "product_id")
-	private Local local;
+	@ManyToOne
+	@JoinColumn(name= "equipment_id")
+	private Equipment equipment;
 	
 	
-	public Switch getOrder() {
+	public Switch getSwitch() {
 		return switcher;
 	}
-	public void setOrder(Switch order) {
-		this.switcher = order;
+	public void setSwitch(Switch switcher) {
+		this.switcher = switcher;
 	}
-	public Local getProduct() {
-		return local;
+	public Equipment getEquip() {
+		return equipment;
 	}
-	public void setProduct(Local product) {
-		this.local = product;
+	public void setEquip(Equipment equipment) {
+		this.equipment = equipment;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((switcher == null) ? 0 : switcher.hashCode());
-		result = prime * result + ((local == null) ? 0 : local.hashCode());
+		result = prime * result + ((equipment == null) ? 0 : equipment.hashCode());
 		return result;
 	}
 	@Override
@@ -57,10 +57,10 @@ public class SwitchPortPK  implements Serializable{
 				return false;
 		} else if (!switcher.equals(other.switcher))
 			return false;
-		if (local == null) {
-			if (other.local != null)
+		if (equipment == null) {
+			if (other.equipment != null)
 				return false;
-		} else if (!local.equals(other.local))
+		} else if (!equipment.equals(other.equipment))
 			return false;
 		return true;
 	}

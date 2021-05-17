@@ -1,12 +1,21 @@
 package com.example.WebRede.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "switch")
@@ -17,34 +26,37 @@ public class Switch implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private int port;
-	private  String type;
-	private String interf;
-	private String tag;
-	private String untag;
-//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-//	private Instant moment;
+	private String modelo;
+	private String login;
+	private String password;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "equip_id")
-//	private Equipment equip;
+	
+	@ManyToOne
+	@JoinColumn(name = "locais_id")
+	private Local locais;
 
-//	@OneToMany(mappedBy = "id.switch")
-//	private Set<SwitchPort> itens = new HashSet<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "switches")
+	private List<Equipment> equip = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "id.switcher")
+	private Set<SwitchPort> ports = new HashSet<>();
 	
 	
 	public Switch() {
 	}
-	public Switch(Long id, String name, int port, String type, String interf, String tag, String untag) {
+
+	public Switch(Long id, String name, String modelo, String login, String password, Local locais) {
+		super();
 		this.id = id;
 		this.name = name;
-		this.port = port;
-		this.type = type;
-		this.interf = interf;
-		this.tag = tag;
-		this.untag = untag;
-		
+		this.modelo = modelo;
+		this.login = login;
+		this.password = password;
+		this.locais = locais;
 	}
+
 	public Long getId() {
 		return id;
 	}
@@ -57,37 +69,39 @@ public class Switch implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getPort() {
-		return port;
+	
+	public String getModelo() {
+		return modelo;
 	}
-	public void setPort(int port) {
-		this.port = port;
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
 	}
-	public String getType() {
-		return type;
+
+	public String getLogin() {
+		return login;
 	}
-	public void setType(String type) {
-		this.type = type;
+
+	public void setLogin(String login) {
+		this.login = login;
 	}
-	public String getInterf() {
-		return interf;
+
+	public String getPassword() {
+		return password;
 	}
-	public void setInterf(String interf) {
-		this.interf = interf;
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public String getTag() {
-		return tag;
+	public Set<SwitchPort> getPorts(){
+		return ports;
 	}
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-	public String getUntag() {
-		return untag;
-	}
-	public void setUntag(String untag) {
-		this.untag = untag;
+	public List<Equipment> getEquip() {
+		return equip;
 	}
 	
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

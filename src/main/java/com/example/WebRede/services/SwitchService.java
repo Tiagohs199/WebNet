@@ -54,10 +54,6 @@ public class SwitchService  {
 	private void updateData(Switch entity, Switch obj) {
 		entity.setName(obj.getName());
 		entity.setId(obj.getId());
-		entity.setPort(obj.getPort());
-		entity.setInterf(obj.getInterf());
-		entity.setTag(obj.getTag());
-		entity.setUntag(obj.getUntag());
-		entity.setType(obj.getType());
+		
 	}
 }

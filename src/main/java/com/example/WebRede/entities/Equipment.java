@@ -1,13 +1,15 @@
 package com.example.WebRede.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,22 +28,23 @@ public class Equipment implements Serializable{
 	private String login;
 	private String password;
 	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "switches_id")
+	private Switch switches; 
 	
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "equip")
-//	private List<Switch> switchs = new ArrayList<>();
 	
-	
-	
+
 	public Equipment() {	
 	}
 
-	public Equipment(Long id,String ip, String name, String login, String password) {
+	public Equipment(Long id,String ip, String name, String login, String password, Switch switchers) {
 		this.id = id;
 		this.ip = ip;
 		this.name = name;
 		this.login = login;
 		this.password = password;
+		this.switches = switchers;
 	}
 	
 	public Long getId() {
@@ -84,6 +87,14 @@ public class Equipment implements Serializable{
 		this.password = password;
 	}
 
+	public Switch getSwitches() {
+		return switches;
+	}
+
+	public void setSwitches(Switch switches) {
+		this.switches = switches;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

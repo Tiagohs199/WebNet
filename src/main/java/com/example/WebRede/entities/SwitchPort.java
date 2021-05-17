@@ -6,53 +6,92 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.example.WebRede.entities.enums.Interface;
+import com.example.WebRede.entities.enums.Type;
 import com.example.WebRede.entities.pk.SwitchPortPK;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "switch_port")
-public class SwitchPort implements Serializable{
-
+public class SwitchPort implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@EmbeddedId
 	private SwitchPortPK id = new SwitchPortPK();
 	
-	private Integer quantity;
 	
+	private int port;
+	private Type type;
+	private Interface iFace;
+	private Long untag;
+	private Long tag;
+
+
 	public SwitchPort() {
 	}
 
-	public SwitchPort(Switch switcher, Local local, Integer quantity) {
+	public SwitchPort(Equipment equipment, Switch switcher,int port, Type type, Interface iFace, Long untag, Long tag) {
 		super();
-		id.setOrder(switcher);
-		id.setProduct(local);
-		this.quantity = quantity;
-		
+		id.setEquip(equipment);
+		id.setSwitch(switcher);
+		this.port = port;
+		this.type = type;
+		this.iFace = iFace;
+		this.untag = untag;
+		this.tag = tag;
 	}
-	
 	@JsonIgnore
-	public Switch getOrder() {
-		return id.getOrder();
+	public Equipment getEquip() {
+		return id.getEquip();
 	}
-	
-	public void setOrder(Switch order) {
-		id.setOrder(order);
+	public void setEquip(Equipment equipment) {
+		id.setEquip(equipment);
 	}
-	public Local getProduct() {
-		return id.getProduct();
+	@JsonIgnore
+	public Switch getSwitcher() {
+		return id.getSwitch();
 	}
-	
-	public void setProduct(Local product) {
-		id.setProduct(product);
+	public void setSwitcher(Switch switcher) {
+		id.setSwitch(switcher);
 	}
-
-	public Integer getQuantity() {
-		return quantity;
+	public int getPort() {
+		return port;
 	}
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	public Interface getiFace() {
+		return iFace;
+	}
+
+	public void setiFace(Interface iFace) {
+		this.iFace = iFace;
+	}
+
+	public Long getUntag() {
+		return untag;
+	}
+
+	public void setUntag(Long untag) {
+		this.untag = untag;
+	}
+
+	public Long getTag() {
+		return tag;
+	}
+
+	public void setTag(Long tag) {
+		this.tag = tag;
 	}
 
 	@Override
@@ -79,4 +118,5 @@ public class SwitchPort implements Serializable{
 			return false;
 		return true;
 	}
+
 }

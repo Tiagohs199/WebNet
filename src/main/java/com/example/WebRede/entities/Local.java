@@ -1,14 +1,13 @@
 package com.example.WebRede.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,13 +21,11 @@ public class Local implements Serializable {
 	private Long id;
 	private String name;
 	
-
-//	@OneToMany
-//	@JoinColumn(name = "switch_id")
-//	private Switch switcher;
 	
-//	@OneToMany(mappedBy = "id.local")
-//	private Set<SwitchPort> items = new HashSet<>();
+	
+	@OneToMany(mappedBy = "locais")
+	private List<Switch> switchers = new ArrayList<>();
+	
 
 	public Local() {
 	}
@@ -36,7 +33,6 @@ public class Local implements Serializable {
 	public Local(Long id, String name) {
 		this.id = id;
 		this.name = name;
-		
 		
 	}
 
@@ -55,14 +51,11 @@ public class Local implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 
-//	public Switch getSwitcher() {
-//		return switcher;
-//	}
-//
-//	public void setSwitcher(Switch switcher) {
-//		this.switcher = switcher;
-//	}
+	public List<Switch> getSwitchers() {
+		return switchers;
+	}
 
 	@Override
 	public int hashCode() {
