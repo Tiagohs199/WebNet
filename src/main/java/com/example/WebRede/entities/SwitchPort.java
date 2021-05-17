@@ -40,7 +40,7 @@ public class SwitchPort implements Serializable {
 		this.untag = untag;
 		this.tag = tag;
 	}
-	@JsonIgnore
+	//@JsonIgnore
 	public Equipment getEquip() {
 		return id.getEquip();
 	}
