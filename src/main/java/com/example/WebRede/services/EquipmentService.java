@@ -57,4 +57,11 @@ public class EquipmentService  {
 		entity.setLogin(obj.getLogin());
 		entity.setPassword(obj.getPassword());
 	}
+	
+	public List<Equipment> findByName(String text){
+		return repository.findByNameContainingIgnoreCase(text);
+	}
+	public List<Equipment> findByIp(String text){
+		return repository.findByIpContainingIgnoreCase(text);
+	}
 }

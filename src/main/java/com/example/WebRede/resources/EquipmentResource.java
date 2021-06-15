@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.WebRede.entities.Equipment;
 import com.example.WebRede.resources.exceptions.StandardError;
+import com.example.WebRede.resources.util.URL;
 import com.example.WebRede.services.EquipmentService;
-import com.example.WebRede.services.exceptions.ResourceNotFoundException;
 import com.example.WebRede.services.exceptions.Utils;
 
 @RestController
@@ -65,6 +67,18 @@ public class EquipmentResource {
 		return ResponseEntity.ok().body(obj);
 		}
 		return ResponseEntity.badRequest().body(obj);
+	}
+	@RequestMapping(value="namesearch", method=RequestMethod.GET)
+	public ResponseEntity<List<Equipment>> findByText(@RequestParam(value = "text", defaultValue = "") String text){	
+		text = URL.decodeParam(text);
+		List<Equipment> list = service.findByName(text);
+		return ResponseEntity.ok().body(list);
+	}
+	@RequestMapping(value="ipsearch", method=RequestMethod.GET)
+	public ResponseEntity<List<Equipment>> findByip(@RequestParam(value = "text", defaultValue = "") String text){	
+		text = URL.decodeParam(text);
+		List<Equipment> list = service.findByIp(text);
+		return ResponseEntity.ok().body(list);
 	}
 	
 }
